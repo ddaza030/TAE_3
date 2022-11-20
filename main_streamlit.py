@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit  as st
 import pandas as pd
 import numpy as np
 import datetime
@@ -13,20 +13,20 @@ image = Image.open('desarrollo2.png')
 imag1 = Image.open('Escudo_de_Medellin.png')
 
 df = pd.read_csv('conteos.csv',sep = ",", encoding='utf-8')
-df2 = pd.read_csv('sinNulosyConCoordenadasEstado.csv',sep = ",", encoding='utf-8').dropna()
+df2 = pd.read_csv('final.csv',sep = ",", encoding='utf-8').dropna()
 
-def time_serie(dataset):
+def time_serie(dataset,name):
     #fig = go.Figure()
     #fig.add_trace(go.Scatter(x=conteos['fecha_accidente'],y=conteos['0']))
     #fig.show()
-    fig = px.line(dataset, x='fecha', y=0)
+    fig = px.line(dataset, x='fecha',y=0,title='Seri de tiempo entre las fechas seleccionadas')
     st.plotly_chart(fig)
 
-def map():
+def map(barrio_seleccionado):
     
     layer = pdk.Layer(
         "ScatterplotLayer",
-        df3,
+        df[df['barrio'] == barrio_seleccionado],
         pickable=True,
         opacity=0.8,
         stroked=True,
@@ -58,7 +58,7 @@ st.markdown('En la siguiente página web se podrá visualizar los datos históri
 
 st.markdown('## Visualización')
 
-st.markdown('En el formulario de abajo, seleccione la fecha de inicio, la final y el tipo de accidente para obtener los datos históricos')
+st.markdown('En el formulario de abajo seleccione la fecha de inicio, la final y el tipo de accidente para visualizar una ventana de tiempo de los datos históricos')
 
 
 with st.sidebar:
@@ -97,14 +97,20 @@ if st.button('calcular'):
     
     
     mask = (df['fecha'] > str(fecha_inicio)) & (df['fecha'] <= str(fecha_final)) & (df['clase_accidente'] == tipo_accidentes )
-    st.write(fecha_final)
+    
     st.write(tipo_accidentes)
     accidentes = df.loc[mask][['fecha','fecha_accidente','clase_accidente','barrio','comuna']]
+    st.markdown('### Ventana de tiempo')
+    st.markdown('Tabla con descripción de los accidentes entre las fechas seleccionadas')
     st.dataframe(accidentes,width=1000, height=200)
     accidentes = accidentes[['fecha','clase_accidente']].value_counts()
     accidentes = pd.DataFrame(accidentes).reset_index()
     accidentes = accidentes.sort_values(by='fecha',ascending=True)
-    time_serie(accidentes)
+    
+    st.markdown('#### Serie de tiempo entre las fechas seleccionadas')
+    st.write("Ponga el cursor sobre la serie de tiempo (la línea azul), para observar el número de tipos de accidentes seleccionados que ocurrieron en esa fecha.")
+
+    time_serie(accidentes,tipo_accidentes)
 else:
     st.write('Goodbye')
 
@@ -114,6 +120,10 @@ st.markdown('## Predicción')
 st.write("holaaaa")
 
 st.markdown('## Agrupamiento')
+st.markdown('En esta sección puede seleccionar algún barrio y ver las características que posee')
+nombre_barrio = st.selectbox(
+    'Seleccione el nombre de barrio',
+    df2['barrio'])
 
 print(df.columns)
 #x = np.array(literal_eval(df['location']))
@@ -121,9 +131,11 @@ print(df.columns)
 #for i in df['location']:
      #print(np.array(literal_eval(i)))
     #print(i)
-
+st.write(df2)
 df3 = df.iloc[:100]
 print(type(df['ubicacion_x'][0]))
+st.write( df2[df2['barrio'] == 'Fátima']['cluster'].values)
 
-
-st.write(map())
+st.write(map(nombre_barrio))
+st.markdown('### Características del barrio ' + nombre_barrio)
+st.markdown('Este barrio pertenece al grupo' )
