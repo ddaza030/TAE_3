@@ -16,10 +16,7 @@ df = pd.read_csv('conteos.csv',sep = ",", encoding='utf-8')
 df2 = pd.read_csv('final.csv',sep = ",", encoding='utf-8').dropna()
 
 def time_serie(dataset,name):
-    #fig = go.Figure()
-    #fig.add_trace(go.Scatter(x=conteos['fecha_accidente'],y=conteos['0']))
-    #fig.show()
-    fig = px.line(dataset, x='fecha',y=0,title='Seri de tiempo entre las fechas seleccionadas')
+    fig = px.line(dataset, x='fecha',y=0,title='Serie de tiempo entre las fechas seleccionadas',labels={'fecha':'Fecha','0':'No. de Accidentes del tipo '+name})
     st.plotly_chart(fig)
 
 def map(barrio_seleccionado):
@@ -32,7 +29,7 @@ def map(barrio_seleccionado):
         stroked=True,
         filled=True,
         radius_scale=6,
-        radius_min_pixels=1,
+        radius_min_pixels=3,
         radius_max_pixels=100,
         line_width_min_pixels=1,
         get_position=['ubicacion_x','ubicacion_y'],
@@ -42,7 +39,7 @@ def map(barrio_seleccionado):
     )
 
     # Set the viewport location
-    view_state = pdk.ViewState(latitude=6.557998, longitude=-75.545921, zoom=1, bearing=0, pitch=0)
+    view_state = pdk.ViewState(latitude=6.25184, longitude=-75.56359, zoom=11, bearing=0, pitch=0)
 
     # Render
     r = pdk.Deck(layers=[layer], initial_view_state=view_state)
@@ -78,11 +75,11 @@ with st.sidebar:
 
 
 fecha_inicio = st.date_input(
-    "fecha de inicio",
-    datetime.date(2019, 7, 6))
+    "Fecha de inicio",
+    datetime.date(2018, 7, 6))
 
 fecha_final= st.date_input(
-    "fecha final",
+    "Fecha final",
     datetime.date(2019, 7, 6))
 
 tipo_accidentes = st.selectbox(
@@ -93,7 +90,7 @@ tipo_accidentes = st.selectbox(
 
 
 
-if st.button('calcular'):
+if st.button('Visualizar'):
     
     
     mask = (df['fecha'] > str(fecha_inicio)) & (df['fecha'] <= str(fecha_final)) & (df['clase_accidente'] == tipo_accidentes )
@@ -101,14 +98,16 @@ if st.button('calcular'):
     st.write(tipo_accidentes)
     accidentes = df.loc[mask][['fecha','fecha_accidente','clase_accidente','barrio','comuna']]
     st.markdown('### Ventana de tiempo')
-    st.markdown('Tabla con descripción de los accidentes entre las fechas seleccionadas')
+    st.markdown('Tabla con descripción de los accidentes de tipo \''+tipo_accidentes+'\' entre las fechas seleccionadas')
     st.dataframe(accidentes,width=1000, height=200)
     accidentes = accidentes[['fecha','clase_accidente']].value_counts()
     accidentes = pd.DataFrame(accidentes).reset_index()
     accidentes = accidentes.sort_values(by='fecha',ascending=True)
     
     st.markdown('#### Serie de tiempo entre las fechas seleccionadas')
-    st.write("Ponga el cursor sobre la serie de tiempo (la línea azul), para observar el número de tipos de accidentes seleccionados que ocurrieron en esa fecha.")
+    st.write("Ponga el cursor sobre la serie de tiempo (la línea azul), para observar el número accidentes de tipo \'"+tipo_accidentes+"\' que ocurrieron en esa fecha."+
+            " También puede hacer zoom dejando presionado click y haciendo un recuadro del tamaño que quiera para visualizar una ventana de tiempo más específica."+
+            " Para volver a la escala de la gráfica inicial, presione el boton llamado 'Autoscale' o 'Reset Axes' y para desplazarse por la gráfica haga click en el botón 'Pan' y arrastre la gráfica hacia donde necesite moverse.")
 
     time_serie(accidentes,tipo_accidentes)
 else:
@@ -132,10 +131,10 @@ print(df.columns)
      #print(np.array(literal_eval(i)))
     #print(i)
 st.write(df2)
-df3 = df.iloc[:100]
-print(type(df['ubicacion_x'][0]))
-st.write( df2[df2['barrio'] == 'Fátima']['cluster'].values)
 
 st.write(map(nombre_barrio))
 st.markdown('### Características del barrio ' + nombre_barrio)
-st.markdown('Este barrio pertenece al grupo' )
+
+cluster = df2.loc[df2['barrio'] == nombre_barrio, 'cluster'].iloc[0]
+
+st.markdown('Este barrio pertenece al grupo '+ str(cluster))
