@@ -84,8 +84,7 @@ fecha_final= st.date_input(
 
 tipo_accidentes = st.selectbox(
     'Seleccione tipo de accidente',
-    ('Caida Ocupante', 'Choque', 'Otro', 'Atropello', 'Volcamiento',
-       'Caída de Ocupante', 'Incendio'))
+    ('Caida Ocupante', 'Choque', 'Otro', 'Atropello', 'Volcamiento', 'Incendio'))
 
 
 
