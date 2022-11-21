@@ -131,6 +131,7 @@ print(df.columns)
     #print(i)
 st.write(df2)
 
+st.write('### Mapa con todos los accidentes históricos en '+ nombre_barrio)
 st.write(map(nombre_barrio))
 st.markdown('### Características del barrio ' + nombre_barrio)
 
