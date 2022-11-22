@@ -115,6 +115,24 @@ else:
 
 st.markdown('## Predicción')
 
+prediccion_accidentes = st.selectbox(
+    'Seleccione tipo de accidente',
+    ('T.Caida Ocupante', 'T.Caída de Ocupante', 'T.Choque', 'T.Incendio', 'T.Otro', 'T.Volcamiento'))
+
+prediccion_comuna = st.selectbox(
+    'Seleccione la comuna para la cual quiere predecir los accidentes',
+    ('T.AU','T.Aranjuez','T.Belén','T.Buenos Aires','T.Castilla','T.Corregimiento de Altavista','T.Corregimiento de San Antonio de Prado','T.Corregimiento de San Cristóbal',
+             'T.Corregimiento de San Sebastián de Palmitas','T.Corregimiento de Santa Elena','T.Doce de Octubre','T.El Poblado','T.Guayabal','T.In','T.La América','T.La Candelaria',
+             'T.Laureles Estadio','T.Manrique','T.Popular','T.Robledo','T.SN','T.San Javier','T.Santa Cruz','T.Villa Hermosa'))
+
+fecha_inicio_prediccion = st.date_input(
+    "Fecha de inicio",
+    datetime.date(2021, 1, 1))
+
+fecha_final_final= st.date_input(
+    "Fecha final",
+    datetime.date(2021, 1, 1))
+
 st.write("holaaaa")
 
 st.markdown('## Agrupamiento')
