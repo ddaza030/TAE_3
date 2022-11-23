@@ -161,7 +161,6 @@ nombre_barrio = st.selectbox(
     'Seleccione el nombre de barrio',
     df2['barrio'])
 
-print(df.columns)
 #x = np.array(literal_eval(df['location']))
 #print(type(x))
 #for i in df['location']:
