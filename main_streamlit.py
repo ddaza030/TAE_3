@@ -6,7 +6,29 @@ from PIL import Image
 import pydeck as pdk
 import datetime
 from ast import literal_eval
+from math import floor
 import plotly.express as px
+
+### Funcion para predecir
+
+def prediccion(fecha_inicial, fecha_final, df):
+
+  minimo = np.datetime64('2021-01-01')
+  maximo = np.datetime64('2022-12-31')
+
+  if np.datetime64(fecha_inicial) < minimo:
+      return -1
+  
+  if np.datetime64(fecha_final) > maximo:
+      return -1
+
+  mask = (df['fecha'] >= np.datetime64(fecha_inicial)) & (df['fecha'] <= np.datetime64(fecha_final))
+
+  accidentes = df.loc[mask]['prediccion'].sum()
+  
+  return floor(accidentes)
+
+###
 
 #imagenes
 image = Image.open('desarrollo2.png')
@@ -14,6 +36,8 @@ imag1 = Image.open('Escudo_de_Medellin.png')
 
 df = pd.read_csv('conteos.csv',sep = ",", encoding='utf-8')
 df2 = pd.read_csv('final.csv',sep = ",", encoding='utf-8').dropna()
+predicciones = pd.read_csv('predicciones.csv',sep = ",", encoding='utf-8')
+predicciones['fecha'] = pd.to_datetime(predicciones['fecha'], format='%Y-%m-%d')
 
 def time_serie(dataset,name):
     fig = px.line(dataset, x='fecha',y=0,title='Serie de tiempo entre las fechas seleccionadas',labels={'fecha':'Fecha','0':'No. de Accidentes del tipo '+name})
@@ -109,31 +133,27 @@ if st.button('Visualizar'):
             " Para volver a la escala de la gráfica inicial, presione el boton llamado 'Autoscale' o 'Reset Axes' y para desplazarse por la gráfica haga click en el botón 'Pan' y arrastre la gráfica hacia donde necesite moverse.")
 
     time_serie(accidentes,tipo_accidentes)
-else:
-    st.write('Goodbye')
 
 
-st.markdown('## Predicción')
+st.markdown('## Predicción de atropellos')
 
-prediccion_accidentes = st.selectbox(
-    'Seleccione tipo de accidente',
-    ('T.Caida Ocupante', 'T.Caída de Ocupante', 'T.Choque', 'T.Incendio', 'T.Otro', 'T.Volcamiento'))
-
-prediccion_comuna = st.selectbox(
-    'Seleccione la comuna para la cual quiere predecir los accidentes',
-    ('T.AU','T.Aranjuez','T.Belén','T.Buenos Aires','T.Castilla','T.Corregimiento de Altavista','T.Corregimiento de San Antonio de Prado','T.Corregimiento de San Cristóbal',
-             'T.Corregimiento de San Sebastián de Palmitas','T.Corregimiento de Santa Elena','T.Doce de Octubre','T.El Poblado','T.Guayabal','T.In','T.La América','T.La Candelaria',
-             'T.Laureles Estadio','T.Manrique','T.Popular','T.Robledo','T.SN','T.San Javier','T.Santa Cruz','T.Villa Hermosa'))
+st.write("Rango: Del primero de Enero de 2021 hasta el 31 de Diciembre de 2022.")
 
 fecha_inicio_prediccion = st.date_input(
     "Fecha de inicio",
     datetime.date(2021, 1, 1))
 
-fecha_final_final= st.date_input(
+fecha_final_prediccion= st.date_input(
     "Fecha final",
     datetime.date(2021, 1, 1))
 
-st.write("holaaaa")
+if st.button('Predecir'):
+    accidentes = prediccion(fecha_inicio_prediccion,fecha_final_prediccion,predicciones)
+
+    if accidentes == -1:
+        st.write("Ingrese por favor las fechas dentro del rango establecido")
+    else:
+        st.write("El número de atropellos para el rango de fechas establecido es de "+str(accidentes))
 
 st.markdown('## Agrupamiento')
 st.markdown('En esta sección puede seleccionar algún barrio y ver las características que posee')
@@ -156,3 +176,4 @@ st.markdown('### Características del barrio ' + nombre_barrio)
 cluster = df2.loc[df2['barrio'] == nombre_barrio, 'cluster'].iloc[0]
 
 st.markdown('Este barrio pertenece al grupo '+ str(cluster))
+
