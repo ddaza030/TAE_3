@@ -12,10 +12,10 @@ from math import floor
 #imagenes
 image = Image.open('desarrollo2.png')
 imag1 = Image.open('Escudo_de_Medellin.png')
-imag2 = Image.open('colision.png')
+#imag2 = Image.open('colision.png')
 
 df = pd.read_csv('conteos.csv',sep = ",", encoding='utf-8')
-df2 = pd.read_csv('final.csv',sep = ",", encoding='utf-8').dropna()
+df2 = pd.read_csv('final_limpio.csv',sep = ",", encoding='utf-8').dropna()
 predicciones = pd.read_csv('predicciones.csv',sep = ",", encoding='utf-8')
 predicciones['fecha'] = pd.to_datetime(predicciones['fecha'], format='%Y-%m-%d')
 
@@ -272,8 +272,6 @@ df_diseno_via_barrio = df_diseno_via_barrio[['Ciclo Ruta',
        'Paso Inferior', 'Paso a Nivel', 'Pontón', 'Puente', 'Tramo de via',
        'Tunel', 'Via peatonal']]
 
-print("Santiago es bobo")
-
 st.write(df2)
 
 st.write('### Mapa con todos los accidentes históricos en '+ nombre_barrio)
@@ -295,7 +293,10 @@ if(cluster == 0):
        'Tunel', 'Via peatonal']]
     nombre_diseno_via = df_diseno_via_barrio.max().sort_values().index[-1]
     numero_accidentes_diseno_via = df_diseno_via_barrio.max().sort_values()[-1]
-    st.dataframe(df_diseno_via_barrio) 
+
+    st.write('Se presenta la cantidad de accidentes del barrio por lugar en la vía')
+
+    st.dataframe(df_diseno_via_barrio)
     st.markdown('### Grupo 	\u1F534')
     st.markdown("Este barrio pertenecea al grupo " + str(cluster)+ " el cual es el que menor accidentalidad tomando en cuenta las varibles usadas.")
     st.markdown('### Características')
@@ -313,6 +314,9 @@ elif(cluster == 1):
        'Tunel', 'Via peatonal']]
     nombre_diseno_via = df_diseno_via_barrio.max().sort_values().index[-1]
     numero_accidentes_diseno_via = df_diseno_via_barrio.max().sort_values()[-1]
+
+    st.write('Se presenta la cantidad de accidentes del barrio por lugar en la vía')
+
     st.dataframe(df_diseno_via_barrio) 
     st.markdown('### Grupo 	\U0001f535')
     st.markdown("Este barrio pertenecea al grupo" + str(cluster)+ ", compuesto por los barrios de mayor accidentalidad por atropellos y accidentes ocurridos en intersecciones, lotes o predios.")
@@ -333,6 +337,9 @@ elif(cluster == 2):
        'Tunel', 'Via peatonal']]
     nombre_diseno_via = df_diseno_via_barrio.max().sort_values().index[-1]
     numero_accidentes_diseno_via = df_diseno_via_barrio.max().sort_values()[-1]
+
+    st.write('Se presenta la cantidad de accidentes del barrio por lugar en la vía')
+
     st.dataframe(df_diseno_via_barrio) 
     st.markdown('### Grupo 	\U0001f535')
     st.markdown("Este barrio pertenecea al grupo " + str(cluster)+ " el cual es el tercer menor grupo de accidentalidad tomando en cuenta las varibles usadas.")
@@ -352,6 +359,9 @@ elif(cluster == 3):
        'Tunel', 'Via peatonal']]
     nombre_diseno_via = df_diseno_via_barrio.max().sort_values().index[-1]
     numero_accidentes_diseno_via = df_diseno_via_barrio.max().sort_values()[-1]
+    
+    st.write('Se presenta la cantidad de accidentes del barrio por lugar en la vía')
+
     st.dataframe(df_diseno_via_barrio) 
     st.markdown('### Grupo 	\U0001f7e1')
     st.markdown("Este barrio pertenece al grupo " + str(cluster)+ " el cual está compuesto por el grupo de barrios cuya accidentalidad es la segunda mayor en comparación a los otros")
@@ -370,6 +380,9 @@ elif(cluster == 4):
        'Tunel', 'Via peatonal']]
     nombre_diseno_via = df_diseno_via_barrio.max().sort_values().index[-1]
     numero_accidentes_diseno_via = df_diseno_via_barrio.max().sort_values()[-1]
+    
+    st.write('Se presenta la cantidad de accidentes del barrio por lugar en la vía')
+
     st.dataframe(df_diseno_via_barrio) 
     st.markdown('### Grupo 	\u1F7E3')
     st.markdown("Este barrio pertenece a el grupo " + str(cluster)+ " el cual es el grupo de barrios con menor accidentalidad en todas las variables.")
@@ -389,6 +402,9 @@ elif(cluster == 5):
        'Tunel', 'Via peatonal']]
     nombre_diseno_via = df_diseno_via_barrio.max().sort_values().index[-1]
     numero_accidentes_diseno_via = df_diseno_via_barrio.max().sort_values()[-1]
+    
+    st.write('Se presenta la cantidad de accidentes del barrio por lugar en la vía')
+
     st.dataframe(df_diseno_via_barrio) 
     st.markdown("Este barrio pertenecea al grupo " + str(cluster)+ " el cual es el tercer mayor en cuanto a accidentalidad.")
     st.markdown('### Características')
