@@ -271,7 +271,7 @@ if st.button('Predecir'):
     else:
         st.write("El número de atropellos para el rango de fechas establecido es de "+str(accidentes))
 
-st.markdown('##  Agrupamiento')
+st.markdown('## \U0001f307 Agrupamiento')
 st.markdown('En esta sección puede seleccionar algún barrio y ver las características que posee. También se puede observar a qué grupo pertenece. En total hay 6 grupos enumerados del 0 al 5.')
 
 nombre_barrio = st.selectbox(
@@ -287,7 +287,7 @@ df_diseno_via_barrio = df_diseno_via_barrio[['Ciclo Ruta',
 
 st.write(df2)
 
-st.write('### \U0001f5fa Mapa con todos los accidentes históricos en '+ nombre_barrio)
+st.write('### \U0001f30f Mapa con todos los accidentes históricos en '+ nombre_barrio)
 st.write('En el siguiente mapa puede ver todos los accidentes que han ocurrido en el barrio '+ nombre_barrio +'. Los accidentes están representados por una circulo de un color (el color representa el grupo al que pertenece el barrio), si pone el cursor encima del círculo puede observa la fecha del accidente y la hora en que ocurrio.')
 st.write(map(nombre_barrio))
 st.markdown('### Características del barrio ' + nombre_barrio)
