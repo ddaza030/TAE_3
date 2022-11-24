@@ -186,14 +186,14 @@ with col2:
 with col3:
    st.image(imag2,width=150)
 
-st.markdown('En la siguiente página web se podrá visualizar los datos históricos de accidentalidad por accidente,predecir la accidentalidad por tipo de accidente utilizando una ventana y una resolución temporal definidas por el usuario. Ademas de visualizar una agrupación de los barrios en un mapa. Al seleccionar un barrio se puede visualizar las características del barrio y las del grupo al que pertenece. ')
+st.markdown('En la siguiente página web se podrá visualizar los datos históricos de accidentalidad por accidente, predecir la accidentalidad por tipo de accidente utilizando una ventana y una resolución temporal definidas por el usuario. Ademas de visualizar una agrupación de los barrios en un mapa. Al seleccionar un barrio se puede visualizar las características del barrio y las del grupo al que pertenece.')
 
 st.markdown('#### Reporte técnico')
 st.markdown('En el siguiente link [Reporte técnico](https://marloneau.quarto.pub/analisis-de-accidentes-viales-en-la-ciudad-de-medellin/)  puede consultar el reporte técnico para entender el desarrollo de la página y de las metodologías usadas.')
 
 st.markdown('#### Video promocional')
 st.markdown('En el siguiente link <link> puede observar un video en youtube donde se explica los beneficios de la página web y de cómo utilizarla.')
-    
+st.video('https://www.youtube.com/watch?v=6NZBvT3FNBw')     
 
 st.markdown('## \U0001f441 Visualización')
 
