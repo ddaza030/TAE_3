@@ -284,7 +284,6 @@ df_diseno_via_barrio = df_diseno_via_barrio[['Ciclo Ruta',
        'Paso Inferior', 'Paso a Nivel', 'Pontón', 'Puente', 'Tramo de via',
        'Tunel', 'Via peatonal']]
 
-print("Santiago es bobo")
 
 st.write(df2)
 
