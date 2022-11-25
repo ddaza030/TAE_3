@@ -192,8 +192,8 @@ st.markdown('#### Reporte técnico')
 st.markdown('En el siguiente link [Reporte técnico](https://marloneau.quarto.pub/analisis-de-accidentes-viales-en-la-ciudad-de-medellin/)  puede consultar el reporte técnico para entender el desarrollo de la página y de las metodologías usadas.')
 
 st.markdown('#### Video promocional')
-st.markdown('En el siguiente link <link> puede observar un video en youtube donde se explica los beneficios de la página web y de cómo utilizarla.')
-st.video('https://www.youtube.com/watch?v=6NZBvT3FNBw')     
+st.markdown('En el siguiente video puede observar un video promocional de la página y como usarla.')
+st.video('https://www.youtube.com/watch?v=BJ5skXCY3_s&feature=youtu.be')     
 
 st.markdown('## \U0001f441 Visualización')
 
