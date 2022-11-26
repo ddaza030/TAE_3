@@ -193,7 +193,7 @@ st.markdown('En el siguiente link [Reporte técnico](https://marloneau.quarto.pu
 
 st.markdown('#### Video promocional')
 st.markdown('En el siguiente video puede observar un video promocional de la página y como usarla.')
-st.video('https://www.youtube.com/watch?v=BJ5skXCY3_s&feature=youtu.be')     
+st.video('https://www.youtube.com/watch?v=gMGuMEsrS74')     
 
 st.markdown('## \U0001f441 Visualización')
 
